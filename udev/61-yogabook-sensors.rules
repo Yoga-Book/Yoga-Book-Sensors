@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+ACTION=="remove", GOTO="yogabook_sensors_end"
+
+# The Yoga Book exposes two sensor hubs containing otherwise identical HID
+# accelerometers. Include the platform-device instance in the hwdb lookup so
+# display and base accelerometers can be classified independently.
+SUBSYSTEM=="iio", KERNEL=="iio:device*", SUBSYSTEMS=="usb|i2c|platform", \
+  IMPORT{builtin}="hwdb 'sensor:modalias:$attr{modalias}:id:$id:$attr{[dmi/id]modalias}'"
+
+LABEL="yogabook_sensors_end"

@@ -1,0 +1,28 @@
+Source: yogabook-sensors
+Section: utils
+Priority: optional
+Maintainer: Yoga Book maintainers <Yoga-Book@users.noreply.github.com>
+Build-Depends:
+ debhelper-compat (= 13),
+ systemd,
+ udev,
+Standards-Version: 4.7.3
+Rules-Requires-Root: no
+Homepage: https://github.com/Yoga-Book/Yoga-Book-Sensors
+Vcs-Browser: https://github.com/Yoga-Book/Yoga-Book-Sensors
+Vcs-Git: https://github.com/Yoga-Book/Yoga-Book-Sensors.git
+
+Package: yogabook-sensors
+Architecture: all
+Depends:
+ udev,
+ ${misc:Depends},
+Recommends:
+ iio-sensor-proxy,
+Description: Lenovo Yoga Book YB1-X91L sensor integration
+ Identifies the display and base accelerometers exposed by both Yoga Book
+ sensor hubs, supplies their mount matrices for desktop automatic rotation,
+ and provides the SX9310 proximity threshold required by iio-sensor-proxy.
+ .
+ This package contains only udev and hardware-database sensor policy. It does
+ not contain keyboard, pen, audio, firmware, or kernel components.

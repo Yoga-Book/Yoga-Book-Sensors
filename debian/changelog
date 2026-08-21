@@ -1,0 +1,19 @@
+yogabook-sensors (1.0.0-3) unstable; urgency=medium
+
+  * Expose the YB1-X91L SX9310 proximity threshold to iio-sensor-proxy.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Fri, 21 Aug 2026 06:10:00 +0200
+
+yogabook-sensors (1.0.0-2) unstable; urgency=medium
+
+  * Rotate both display accelerometers into the native landscape panel frame.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Fri, 21 Aug 2026 00:25:00 +0200
+
+yogabook-sensors (1.0.0-1) unstable; urgency=medium
+
+  * Package the physically identified YB1-X91L display and base accelerometers.
+  * Apply the base accelerometer mount matrix through a per-instance hwdb key.
+  * Keep sensor policy independent from input, audio, and kernel packages.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Thu, 20 Aug 2026 23:58:00 +0200

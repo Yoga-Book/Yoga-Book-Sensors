@@ -3,7 +3,9 @@
 Yoga Book Sensors supplies the userspace sensor classification required by the
 Lenovo Yoga Book YB1-X91L. The tablet exposes four identically named HID
 accelerometers across two sensor hubs. Desktop rotation services need to know
-which accelerometers belong to the display and which belong to the base.
+which accelerometers belong to the display and which belong to the base. The
+tablet also exposes an SX9310 capacitive proximity sensor whose hardware near
+threshold must be supplied to `iio-sensor-proxy` through hwdb.
 
 The project and Debian package are both named `yogabook-sensors`.
 
@@ -13,7 +15,8 @@ This package contains only:
 
 - a udev rule that adds the platform instance ID to the sensor hwdb key;
 - X91L-scoped display/base accelerometer classifications;
-- the physically established base accelerometer mount matrix.
+- physically established display and base accelerometer mount matrices.
+- the X91L SX9310 proximity near threshold reported by the kernel driver.
 
 It deliberately contains no keyboard, pen, backlight, audio, firmware, kernel,
 or display-touchscreen policy. `iio-sensor-proxy` consumes the resulting udev
@@ -42,13 +45,15 @@ make deb
 ## Install
 
 ```bash
-sudo apt install ../yogabook-sensors_1.0.0-1_all.deb
+sudo apt install ../yogabook-sensors_1.0.0-3_all.deb
 sudo reboot
 ```
 
 After reboot, `udevadm info` must report `ACCEL_LOCATION=display` for instances
-`.10` and `.19`, `ACCEL_LOCATION=base` plus the mount matrix for `.11` and
-`.20`, and `monitor-sensor --accel` must follow physical display rotation.
+`.10` and `.19`, `ACCEL_LOCATION=base` for `.11` and `.20`, the appropriate
+mount matrix for all four accelerometers, and `monitor-sensor --accel` must
+follow physical display rotation. The SX9310 device must report
+`PROXIMITY_NEAR_LEVEL=96`, and SensorProxy must expose proximity support.
 
 See [ATTRIBUTION.md](ATTRIBUTION.md) and [LICENSE](LICENSE) for provenance and
 licensing.

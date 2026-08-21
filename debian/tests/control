@@ -1,0 +1,3 @@
+Tests: smoke
+Depends: @, systemd, udev
+Restrictions: superficial

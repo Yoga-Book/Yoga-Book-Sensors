@@ -1,0 +1,29 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Yoga Book Sensors
+Upstream-Contact: Yoga Book maintainers <Yoga-Book@users.noreply.github.com>
+Source: https://github.com/Yoga-Book/Yoga-Book-Sensors
+Comment:
+ The sensor instance identities and original hwdb/rule implementation were
+ established by the yogabook-support project. See ATTRIBUTION.md.
+
+Files: *
+Copyright:
+ 2020-2025 Yauhen Kharuzhy <jekhor@gmail.com>
+ 2026 Yoga Book contributors
+License: GPL-2.0-or-later
+
+Files: debian/*
+       tests/*
+       README.md
+       ATTRIBUTION.md
+Copyright: 2026 Yoga Book contributors
+License: GPL-2.0-or-later
+
+License: GPL-2.0-or-later
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ On Debian systems, the complete text of version 2 of the GNU General Public
+ License can be found in /usr/share/common-licenses/GPL-2.

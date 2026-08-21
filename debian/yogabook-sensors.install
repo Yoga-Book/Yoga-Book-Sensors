@@ -1,0 +1,2 @@
+udev/61-yogabook-sensors.rules usr/lib/udev/rules.d
+udev/61-yogabook-sensors.hwdb usr/lib/udev/hwdb.d
