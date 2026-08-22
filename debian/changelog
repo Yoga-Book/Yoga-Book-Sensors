@@ -1,3 +1,9 @@
+yogabook-sensors (1.0.0-4) unstable; urgency=medium
+
+  * Align both display accelerometers with the physical landscape frame.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Sat, 22 Aug 2026 06:10:00 +0200
+
 yogabook-sensors (1.0.0-3) unstable; urgency=medium
 
   * Expose the YB1-X91L SX9310 proximity threshold to iio-sensor-proxy.

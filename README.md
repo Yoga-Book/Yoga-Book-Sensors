@@ -15,7 +15,7 @@ This package contains only:
 
 - a udev rule that adds the platform instance ID to the sensor hwdb key;
 - X91L-scoped display/base accelerometer classifications;
-- physically established display and base accelerometer mount matrices.
+- physically established display and base accelerometer mount matrices;
 - the X91L SX9310 proximity near threshold reported by the kernel driver.
 
 It deliberately contains no keyboard, pen, backlight, audio, firmware, kernel,
@@ -45,14 +45,14 @@ make deb
 ## Install
 
 ```bash
-sudo apt install ../yogabook-sensors_1.0.0-3_all.deb
+sudo apt install ../yogabook-sensors_1.0.0-4_all.deb
 sudo reboot
 ```
 
-After reboot, `udevadm info` must report `ACCEL_LOCATION=display` for instances
-`.10` and `.19`, `ACCEL_LOCATION=base` for `.11` and `.20`, the appropriate
-mount matrix for all four accelerometers, and `monitor-sensor --accel` must
-follow physical display rotation. The SX9310 device must report
+After reboot, `udevadm info` must report `ACCEL_LOCATION=display` and an
+identity mount matrix for instances `.10` and `.19`, `ACCEL_LOCATION=base`
+with the base mount matrix for `.11` and `.20`, and `monitor-sensor --accel`
+must follow physical display rotation. The SX9310 device must report
 `PROXIMITY_NEAR_LEVEL=96`, and SensorProxy must expose proximity support.
 
 See [ATTRIBUTION.md](ATTRIBUTION.md) and [LICENSE](LICENSE) for provenance and

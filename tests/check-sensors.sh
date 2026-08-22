@@ -78,9 +78,9 @@ require_location() {
 	fi
 }
 
-require_location 10 display '0, -1, 0; 1, 0, 0; 0, 0, 1'
+require_location 10 display '1, 0, 0; 0, 1, 0; 0, 0, 1'
 require_location 11 base '0, 1, 0; -1, 0, 0; 0, 0, 1'
-require_location 19 display '0, -1, 0; 1, 0, 0; 0, 0, 1'
+require_location 19 display '1, 0, 0; 0, 1, 0; 0, 0, 1'
 require_location 20 base '0, 1, 0; -1, 0, 0; 0, 0, 1'
 
 proximity=$(systemd-hwdb --root="$temporary_root" query \
@@ -104,6 +104,8 @@ if systemd-hwdb --root="$temporary_root" query \
 	exit 1
 fi
 
+# The udev rule must contain the literal runtime attribute name.
+# shellcheck disable=SC2016
 grep -Fq ':id:$id:' "$root/udev/61-yogabook-sensors.rules"
 
 echo 'Yoga Book sensor database: PASS'

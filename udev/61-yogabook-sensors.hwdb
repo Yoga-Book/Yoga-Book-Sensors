@@ -3,7 +3,7 @@
 # Lenovo Yoga Book YB1-X91L sensor hub exposed as 8087:0AC2.
 sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.10.auto:dmi:bvnLENOVO*pnLenovoYB1-X91L:*
  ACCEL_LOCATION=display
- ACCEL_MOUNT_MATRIX=0, -1, 0; 1, 0, 0; 0, 0, 1
+ ACCEL_MOUNT_MATRIX=1, 0, 0; 0, 1, 0; 0, 0, 1
 
 sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.11.auto:dmi:bvnLENOVO*pnLenovoYB1-X91L:*
  ACCEL_LOCATION=base
@@ -12,7 +12,7 @@ sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.11.auto:dmi:bvnL
 # Lenovo Yoga Book YB1-X91L sensor hub exposed as 8087:8AC2.
 sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.19.auto:dmi:bvnLENOVO*pnLenovoYB1-X91L:*
  ACCEL_LOCATION=display
- ACCEL_MOUNT_MATRIX=0, -1, 0; 1, 0, 0; 0, 0, 1
+ ACCEL_MOUNT_MATRIX=1, 0, 0; 0, 1, 0; 0, 0, 1
 
 sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.20.auto:dmi:bvnLENOVO*pnLenovoYB1-X91L:*
  ACCEL_LOCATION=base
