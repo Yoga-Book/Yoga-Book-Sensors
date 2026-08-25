@@ -19,6 +19,14 @@ configure)
 	if [ -z "$root" ] && command -v udevadm >/dev/null 2>&1; then
 		udevadm control --reload-rules || true
 	fi
+	if [ -z "$root" ] && command -v systemctl >/dev/null 2>&1; then
+		systemctl daemon-reload
+		if command -v deb-systemd-invoke >/dev/null 2>&1; then
+			deb-systemd-invoke restart thermald.service
+		else
+			systemctl restart thermald.service
+		fi
+	fi
 	;;
 abort-upgrade|abort-remove|abort-deconfigure)
 	;;

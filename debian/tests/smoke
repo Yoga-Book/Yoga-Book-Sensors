@@ -3,6 +3,8 @@ set -eu
 
 test -f /usr/lib/udev/rules.d/61-yogabook-sensors.rules
 test -f /usr/lib/udev/hwdb.d/61-yogabook-sensors.hwdb
+test -x /usr/libexec/yogabook-sensors/generate-thermald-config.sh
+test -f /usr/lib/systemd/system/thermald.service.d/10-yogabook-policy.conf
 test -f /usr/share/doc/yogabook-sensors/ATTRIBUTION.md
 test -f /usr/share/doc/yogabook-sensors/README.md
 
@@ -13,7 +15,7 @@ display=$(systemd-hwdb query \
     'sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.10.auto:dmi:bvnLENOVO:pnLenovoYB1-X91L:')
 printf '%s\n' "$display" | grep -Fqx 'ACCEL_LOCATION=display'
 printf '%s\n' "$display" |
-    grep -Fqx 'ACCEL_MOUNT_MATRIX=0, -1, 0; 1, 0, 0; 0, 0, 1'
+    grep -Fqx 'ACCEL_MOUNT_MATRIX=1, 0, 0; 0, 1, 0; 0, 0, 1'
 
 base=$(systemd-hwdb query \
     'sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.11.auto:dmi:bvnLENOVO:pnLenovoYB1-X91L:')
@@ -24,3 +26,8 @@ printf '%s\n' "$base" |
 proximity=$(systemd-hwdb query \
     'sensor:modalias:acpi:STH9310::dmi:bvnLENOVO:pnLenovoYB1-X91L:')
 printf '%s\n' "$proximity" | grep -Fqx 'PROXIMITY_NEAR_LEVEL=96'
+
+grep -Fqx 'ExecStartPre=/usr/libexec/yogabook-sensors/generate-thermald-config.sh' \
+    /usr/lib/systemd/system/thermald.service.d/10-yogabook-policy.conf
+grep -Fqx 'ExecStart=/usr/sbin/thermald --systemd --dbus-enable --ignore-default-control --config-file=/run/thermald/yogabook-thermal-conf.xml --poll-interval=4' \
+    /usr/lib/systemd/system/thermald.service.d/10-yogabook-policy.conf

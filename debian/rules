@@ -5,3 +5,4 @@
 
 override_dh_auto_test:
 	bash tests/check-sensors.sh
+	bash tests/check-thermald.sh

@@ -1,3 +1,24 @@
+yogabook-sensors (1.0.0-7) unstable; urgency=medium
+
+  * Wait for late-probing charger and thermal sensors during boot.
+  * Give thermald bounded restart headroom if platform probing is delayed.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Tue, 25 Aug 2026 10:10:00 +0200
+
+yogabook-sensors (1.0.0-6) unstable; urgency=medium
+
+  * Bind thermald to intel_pstate when the CPU uses intel_cpufreq.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Tue, 25 Aug 2026 09:15:00 +0200
+
+yogabook-sensors (1.0.0-5) unstable; urgency=medium
+
+  * Generate a validated YB1-X91L thermald policy from live sensor paths.
+  * Throttle CPU and platform heat before the 90 C hardware critical limit.
+  * Reduce charging only at validated battery or charger thermal thresholds.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Tue, 25 Aug 2026 08:45:00 +0200
+
 yogabook-sensors (1.0.0-4) unstable; urgency=medium
 
   * Align both display accelerometers with the physical landscape frame.

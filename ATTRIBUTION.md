@@ -18,3 +18,7 @@ GPL-2.0-or-later. This project narrows the DMI match to the physically verified
 Lenovo YB1-X91L, adds the display mount matrix established from real-device
 axis and GNOME orientation evidence, separates sensor policy from unrelated
 subsystems, and adds deterministic matching and Debian-package tests.
+
+The thermald policy and its sysfs discovery/generation code are original work
+of the Yoga Book contributors. The sensor and cooling-device interfaces it
+uses are public Linux kernel ABI; no thermald or kernel source code is copied.

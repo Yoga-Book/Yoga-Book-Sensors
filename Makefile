@@ -5,6 +5,7 @@ ORIG_TARBALL := ../yogabook-sensors_$(PACKAGE_VERSION).orig.tar.xz
 
 test:
 	bash tests/check-sensors.sh
+	bash tests/check-thermald.sh
 
 deb: test
 	dpkg-buildpackage --build=binary --no-sign

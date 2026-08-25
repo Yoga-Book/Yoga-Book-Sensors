@@ -16,6 +16,8 @@ required_files=(
 	debian/yogabook-sensors.install
 	debian/yogabook-sensors.postinst
 	debian/yogabook-sensors.postrm
+	libexec/generate-thermald-config.sh
+	systemd/thermald.service.d/10-yogabook-policy.conf
 	udev/61-yogabook-sensors.hwdb
 	udev/61-yogabook-sensors.rules
 )
@@ -29,7 +31,9 @@ for executable_file in \
 	debian/yogabook-sensors.postinst \
 	debian/yogabook-sensors.postrm \
 	debian/tests/smoke \
-	tests/check-sensors.sh; do
+	libexec/generate-thermald-config.sh \
+	tests/check-sensors.sh \
+	tests/check-thermald.sh; do
 	test -x "$root/$executable_file"
 done
 
@@ -40,6 +44,8 @@ grep -Fxq 'README.md' "$root/debian/yogabook-sensors.docs"
 grep -Fq '61-yogabook-sensors.rules usr/lib/udev/rules.d' \
 	"$root/debian/yogabook-sensors.install"
 grep -Fq '61-yogabook-sensors.hwdb usr/lib/udev/hwdb.d' \
+	"$root/debian/yogabook-sensors.install"
+grep -Fq 'generate-thermald-config.sh usr/libexec/yogabook-sensors' \
 	"$root/debian/yogabook-sensors.install"
 
 cleanup() {
