@@ -1,3 +1,9 @@
+yogabook-sensors (1.0.0-8) unstable; urgency=medium
+
+  * Skip live systemd reloads when configuring an offline image or container.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Fri, 28 Aug 2026 23:15:00 +0200
+
 yogabook-sensors (1.0.0-7) unstable; urgency=medium
 
   * Wait for late-probing charger and thermal sensors during boot.

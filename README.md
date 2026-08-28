@@ -56,7 +56,7 @@ make deb
 ## Install
 
 ```bash
-sudo apt install ../yogabook-sensors_1.0.0-7_all.deb
+sudo apt install ../yogabook-sensors_1.0.0-8_all.deb
 sudo reboot
 ```
 
