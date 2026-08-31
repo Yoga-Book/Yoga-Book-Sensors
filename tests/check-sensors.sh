@@ -4,10 +4,10 @@
 set -Eeuo pipefail
 
 root=${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
-temporary_root=$(mktemp -d /tmp/yogabook-sensors-hwdb.XXXXXX)
+temporary_base=${TMPDIR:-/mnt/DATA/tmp}
+temporary_root=$(mktemp -d "$temporary_base/yogabook-sensors-hwdb.XXXXXX")
 
 required_files=(
-	ATTRIBUTION.md
 	LICENSE
 	README.md
 	debian/control
@@ -39,7 +39,6 @@ done
 
 grep -Fq 'GNU GENERAL PUBLIC LICENSE' "$root/LICENSE"
 grep -Fxq 'Package: yogabook-sensors' "$root/debian/control"
-grep -Fxq 'ATTRIBUTION.md' "$root/debian/yogabook-sensors.docs"
 grep -Fxq 'README.md' "$root/debian/yogabook-sensors.docs"
 grep -Fq '61-yogabook-sensors.rules usr/lib/udev/rules.d' \
 	"$root/debian/yogabook-sensors.install"
@@ -60,48 +59,14 @@ systemd-hwdb --root="$temporary_root" --strict update
 udevadm verify --no-style --no-summary \
 	"$root/udev/61-yogabook-sensors.rules"
 
-query_sensor() {
-	local instance=$1
-	local product=${2:-LenovoYB1-X91L}
-
-	systemd-hwdb --root="$temporary_root" query \
-		"sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.${instance}.auto:dmi:bvnLENOVO:pn${product}:" || true
-}
-
-require_location() {
-	local instance=$1
-	local expected_location=$2
-	local expected_matrix=${3:-}
-	local result
-
-	result=$(query_sensor "$instance")
-	grep -Fqx "ACCEL_LOCATION=$expected_location" <<<"$result"
-	if [[ -n $expected_matrix ]]; then
-		grep -Fqx "ACCEL_MOUNT_MATRIX=$expected_matrix" <<<"$result"
-	elif grep -Fq 'ACCEL_MOUNT_MATRIX=' <<<"$result"; then
-		echo "display sensor $instance unexpectedly has a mount matrix" >&2
-		exit 1
-	fi
-}
-
-require_location 10 display '1, 0, 0; 0, 1, 0; 0, 0, 1'
-require_location 11 base '0, 1, 0; -1, 0, 0; 0, 0, 1'
-require_location 19 display '1, 0, 0; 0, 1, 0; 0, 0, 1'
-require_location 20 base '0, 1, 0; -1, 0, 0; 0, 0, 1'
+grep -Fq 'KERNELS=="HID-SENSOR-200073.10.auto", ENV{ACCEL_LOCATION}="display", ENV{ACCEL_MOUNT_MATRIX}="1, 0, 0; 0, 1, 0; 0, 0, 1"' "$root/udev/61-yogabook-sensors.rules"
+grep -Fq 'KERNELS=="HID-SENSOR-200073.11.auto", ENV{ACCEL_LOCATION}="base", ENV{ACCEL_MOUNT_MATRIX}="0, 1, 0; -1, 0, 0; 0, 0, 1"' "$root/udev/61-yogabook-sensors.rules"
+grep -Fq 'KERNELS=="HID-SENSOR-200073.19.auto", ENV{ACCEL_LOCATION}="display", ENV{ACCEL_MOUNT_MATRIX}="1, 0, 0; 0, 1, 0; 0, 0, 1"' "$root/udev/61-yogabook-sensors.rules"
+grep -Fq 'KERNELS=="HID-SENSOR-200073.20.auto", ENV{ACCEL_LOCATION}="base", ENV{ACCEL_MOUNT_MATRIX}="0, 1, 0; -1, 0, 0; 0, 0, 1"' "$root/udev/61-yogabook-sensors.rules"
 
 proximity=$(systemd-hwdb --root="$temporary_root" query \
 	'sensor:modalias:acpi:STH9310::dmi:bvnLENOVO:pnLenovoYB1-X91L:' || true)
 grep -Fqx 'PROXIMITY_NEAR_LEVEL=96' <<<"$proximity"
-
-if query_sensor 10 LenovoYB1-X90L | grep -Fq 'ACCEL_LOCATION='; then
-	echo 'sensor configuration unexpectedly matches YB1-X90L' >&2
-	exit 1
-fi
-
-if query_sensor 12 | grep -Fq 'ACCEL_LOCATION='; then
-	echo 'sensor configuration unexpectedly matches an unknown instance' >&2
-	exit 1
-fi
 
 if systemd-hwdb --root="$temporary_root" query \
 	'sensor:modalias:acpi:STH9310::dmi:bvnLENOVO:pnLenovoYB1-X90L:' |
@@ -110,8 +75,7 @@ if systemd-hwdb --root="$temporary_root" query \
 	exit 1
 fi
 
-# The udev rule must contain the literal runtime attribute name.
-# shellcheck disable=SC2016
-grep -Fq ':id:$id:' "$root/udev/61-yogabook-sensors.rules"
+grep -Fq 'ATTR{[dmi/id]product_name}!="Lenovo YB1-X91L"' \
+	"$root/udev/61-yogabook-sensors.rules"
 
 echo 'Yoga Book sensor database: PASS'

@@ -1,3 +1,11 @@
+yogabook-sensors (1.0.0-9) unstable; urgency=medium
+
+  * Replace the custom per-instance hwdb import with direct, hardware-scoped
+    udev assignments derived from current YB1-X91L physical evidence.
+  * Use Debian systemd helpers without direct systemctl maintainer calls.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Mon, 31 Aug 2026 23:35:00 +0200
+
 yogabook-sensors (1.0.0-8) unstable; urgency=medium
 
   * Skip live systemd reloads when configuring an offline image or container.
